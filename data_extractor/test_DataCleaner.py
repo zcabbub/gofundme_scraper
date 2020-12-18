@@ -4,7 +4,7 @@ from DataCleaner import DataCleaner
 
 
 class TestDataCleaner(TestCase):
-    cleaner = DataCleaner('sites.json')
+    cleaner = DataCleaner('sites.json', 'counts.json')
     jsn = cleaner.get_json()
 
     def test__open_file(self):
@@ -72,4 +72,39 @@ class TestDataCleaner(TestCase):
         beneficiary = self.cleaner.get_beneficiary()
         assert beneficiary == ''
 
+    # Counts tests
+    def testIfGetsTotalPhotos(self):
+        total_photos = self.cleaner.get_total_photos()
+        assert total_photos == 11
 
+    def testIfDictionaryMatches(self):
+        dictionary = self.cleaner.get_dictionary()
+        expected = {
+            'Date and Time (YY-MM-DD)': '2020-12-17 14:48:59.902960',
+            'URL': 'https://www.gofundme.com/f/angel-yang-cassidy-yang',
+            'Title': 'Angel Yang & Cassidy Yang',
+            'Category': 'Funerals & Memorials',
+            'Category URL': 'https://www.gofundme.com/discover/memorial-fundraiser',
+            'Goal': 100000,
+            'Raised': 254295,
+            'Currency': 'USD',
+            'Country': 'US',
+            'City': 'Naperville, IL',
+            'Description': "We are extremely saddened to learn that Angel Yang (29) and Cassidy Yang (26) have lost their\u2026 Love AngeCassi needs your support for Angel Yang & Cassidy Yang",
+            'Creation_date (YY-MM-DD)': '2020-12-10T20:35:54-06:00',
+            'Organizers': {'first_name': 'Love',
+                           'last_name': 'AngeCassi',
+                           'charity': '',
+                           'business': '',
+                           'team': 'Friends of Yang Family',
+                           'partner': '',
+                           },
+            'No. of photos': 11,
+            'No. of community photos': 2,
+            'No. of donations': 2681,
+            'No. of unique donors': 2658,
+            'Amount raised unattributed': 258025,
+            'No. of donations unattributed': 2664,
+            'No. of campaign hearts': 2683,
+            'No. of social media shares': 786,
+        }

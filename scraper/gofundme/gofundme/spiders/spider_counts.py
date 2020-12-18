@@ -6,11 +6,7 @@ from datetime import datetime
 class TestFundSpider(scrapy.Spider):
     name = "counts"
 
-    #with open("./URLS/URLS_500.txt", "rt") as f:
-    #    start_urls = [
-    #        url.strip().replace("https://www.gofundme.com/f/", "https://gateway.gofundme.com/web-gateway/v1/feed/") + "/counts" for url in f.readlines()
-    #        ]
-
+    start_urls = ['https://gateway.gofundme.com/web-gateway/v1/feed/angel-yang-cassidy-yang/counts']
 
     def parse(self, response):
         data = json.loads(response.text)
