@@ -38,49 +38,49 @@ def split(a, n):
     k, m = divmod(len(a), n)
     return list(a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
-#
-# root = listdir()
-# if "sitemaps" in root:
-#     shutil.rmtree("sitemaps/")
-# mkdir("sitemaps/")
-#
-# # To launch in headfull mode, comment out these options
-# options = ChromeOptions()
-# # NEEDS TO NOT BE HEADLESS
-# options.add_argument("--window-size=1920,1080")
-# options.add_argument("--log-level=3")  # fatal
-#
-# options.add_experimental_option("prefs", {
-#     "download.default_directory": r"C:\Users\UCL053368\Documents\Research\Enrico\Scraper\url_extractor\sitemaps",
-#     "download.prompt_for_download": False,
-#     "download.directory_upgrade": True,
-#     "safebrowsing.enabled": True
-# })
-#
-# options.binary_location = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-#
-# print('Starting to SCRAPE the sitemap...')
-# DRIVER_PATH = 'chromedriver.exe'
-# driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
-#
-# driver.get("https://www.gofundme.com/sitemap.xml")
-# driver.maximize_window()
-#
-# sitemap_lastMod = driver.find_element_by_tag_name("lastmod").get_attribute("innerHTML")
-#
-# xmlGzLocations = driver.find_elements_by_tag_name("loc")
-# xmlGzLinks = []
-# for location in xmlGzLocations:
-#     text = location.get_attribute("innerHTML")
-#     if text != "https://www.gofundme.com/sitemaps/sitemap_marketing.xml.gz":
-#         xmlGzLinks.append(text)
-#
-# print('Downloading the .gz archived files...')
-# for link in xmlGzLinks:
-#     driver.get(link)
-#
-# time.sleep(5)
-# driver.close()
+
+root = listdir()
+if "sitemaps" in root:
+    shutil.rmtree("sitemaps/")
+mkdir("sitemaps/")
+
+# To launch in headfull mode, comment out these options
+options = ChromeOptions()
+# NEEDS TO NOT BE HEADLESS
+options.add_argument("--window-size=1920,1080")
+options.add_argument("--log-level=3")  # fatal
+
+options.add_experimental_option("prefs", {
+    "download.default_directory": r"C:\Users\UCL053368\Documents\Research\Enrico\Scraper\url_extractor\sitemaps",
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True
+})
+
+options.binary_location = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+print('Starting to SCRAPE the sitemap...')
+DRIVER_PATH = 'chromedriver.exe'
+driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
+
+driver.get("https://www.gofundme.com/sitemap.xml")
+driver.maximize_window()
+
+sitemap_lastMod = driver.find_element_by_tag_name("lastmod").get_attribute("innerHTML")
+
+xmlGzLocations = driver.find_elements_by_tag_name("loc")
+xmlGzLinks = []
+for location in xmlGzLocations:
+    text = location.get_attribute("innerHTML")
+    if text != "https://www.gofundme.com/sitemaps/sitemap_marketing.xml.gz":
+        xmlGzLinks.append(text)
+
+print('Downloading the .gz archived files...')
+for link in xmlGzLinks:
+    driver.get(link)
+
+time.sleep(5)
+driver.close()
 
 print('Extracting the HTML urls')
 html_urls = []

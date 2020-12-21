@@ -7,9 +7,6 @@ class TestDataCleaner(TestCase):
     cleaner = DataCleaner('sites.json', 'counts.json')
     jsn = cleaner.get_json()
 
-    def test__open_file(self):
-        pass
-
     def testIfGetsURL(self):
         url = self.jsn.get('url')
         assert url == 'https://www.gofundme.com/f/angel-yang-cassidy-yang'
@@ -32,7 +29,7 @@ class TestDataCleaner(TestCase):
 
     def testIfRaised(self):
         raised = self.cleaner.get_raised()
-        assert raised == 254295
+        assert raised == 263902
 
     def testIfCurrency(self):
         currency = self.cleaner.get_currency()
@@ -86,7 +83,7 @@ class TestDataCleaner(TestCase):
             'Category': 'Funerals & Memorials',
             'Category URL': 'https://www.gofundme.com/discover/memorial-fundraiser',
             'Goal': 100000,
-            'Raised': 254295,
+            'Raised': 263902,
             'Currency': 'USD',
             'Country': 'US',
             'City': 'Naperville, IL',

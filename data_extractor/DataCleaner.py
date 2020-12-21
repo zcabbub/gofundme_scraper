@@ -7,27 +7,27 @@ def open_file(file):
 
 
 class DataCleaner:
-
     def __init__(self, html_file, counts_file):
-        self.html_jsn = open_file(html_file)
-        self.counts_jsn = open_file(counts_file)['counts']
-        self.campaignJSON = self.html_jsn['feed']['campaign']
+        # self.html_jsn = open_file(html_file)
+        # self.counts_jsn = open_file(counts_file)['counts']
+        if html_file.get('url') == counts_file.get('url'):
+            self.html_jsn = html_file
+            self.counts_jsn = counts_file['counts']
+        else:
+            raise Exception("AssertionError at {url}".format(url=html_file.get('url')))
 
     # GETTERS
     def get_json(self):
         return self.html_jsn
 
-    def get_campaignJSON(self):
-        return self.campaignJSON
-
     def get_title(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         title = jsn.get('fund_name')
         return title
 
     def get_category(self):
         jsn = self.get_json()
-        category = jsn.get('category_text')
+        category = jsn.get('category')
         return category
 
     def get_category_url(self):
@@ -36,42 +36,42 @@ class DataCleaner:
         return url
 
     def get_goal(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         goal = jsn.get('goal_amount')
         return goal
 
     def get_raised(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         raised = jsn.get('current_amount')
         return raised
 
     def get_currency(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         currency = jsn.get('currencycode')
         return currency
 
     def get_country(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         country = jsn.get('location').get('country')
         return country
 
     def get_city(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         city = jsn.get('location').get('city')
         return city
 
     def get_description(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         description = jsn.get('fund_description')
         return description
 
     def get_creation_date(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         creation_date = jsn.get('created_at')
         return creation_date
 
     def get_organizer(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         business = jsn.get('business').get('name')
         team = jsn.get('team').get('name')
         charity = jsn.get('charity').get('name')
@@ -87,7 +87,7 @@ class DataCleaner:
         return organizer
 
     def get_beneficiary(self):
-        jsn = self.get_campaignJSON()
+        jsn = self.get_json()['data']
         if not jsn.get('has_beneficiary'):
             beneficiary = ''
         else:
@@ -132,7 +132,7 @@ class DataCleaner:
     def get_dictionary(self):
         jsn = self.get_json()
         dictionary = {
-            'Date and Time (YY-MM-DD)': jsn['date_time'],
+            'Date and Time (YY-MM-DD)': jsn.get('date_time'),
             'URL': jsn.get('url'),
             'Title': self.get_title(),
             'Category': self.get_category(),
