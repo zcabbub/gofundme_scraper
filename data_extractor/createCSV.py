@@ -8,11 +8,11 @@ differences = 0
 
 # Creating table
 print('Creating table...')
-with open('1000sites.json', 'r') as htmls:
+with open('1000htmls.json', 'r') as htmls:
     with open('1000counts.json', 'r') as counts:
         htmls_list = json.load(htmls)
         counts_list = json.load(counts)
-        for index in range(0, 997):
+        for index in range(0, 1000):
             try:
                 cleaner = DataCleaner(htmls_list[index], counts_list[index])
                 row = cleaner.get_dictionary()
@@ -25,5 +25,5 @@ print('Done with {errors} differences'.format(errors=differences))
 
 # Exporting
 print('Exporting table...')
-table.to_csv('998campaigns.csv')
+table.to_csv('1000campaigns.csv')
 print('Done.')

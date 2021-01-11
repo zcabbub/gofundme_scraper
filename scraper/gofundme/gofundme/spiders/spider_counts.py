@@ -18,6 +18,6 @@ class CountsSpider(scrapy.Spider):
         dj = {
             "counts":counts,
             "url":response.request.url.replace("https://gateway.gofundme.com/web-gateway/v1/feed/", "https://www.gofundme.com/f/").replace("/counts", ""),
-            "date_time": str(datetime.now())
+            "data_date": str(datetime.now())
         }
         yield dj

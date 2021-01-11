@@ -72,7 +72,7 @@ xmlGzLocations = driver.find_elements_by_tag_name("loc")
 xmlGzLinks = []
 for location in xmlGzLocations:
     text = location.get_attribute("innerHTML")
-    if text != "https://www.gofundme.com/sitemaps/sitemap_marketing.xml.gz":
+    if text != "https://www.gofundme.com/sitemaps/sitemap_marketing.xml.gz" and ("34" in text):
         xmlGzLinks.append(text)
 
 print('Downloading the .gz archived files...')

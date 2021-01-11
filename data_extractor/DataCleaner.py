@@ -132,7 +132,7 @@ class DataCleaner:
     def get_dictionary(self):
         jsn = self.get_json()
         dictionary = {
-            'Date and Time (YY-MM-DD)': jsn.get('date_time'),
+            'Date and Time (YY-MM-DD)': jsn.get('data_date'),
             'URL': jsn.get('url'),
             'Title': self.get_title(),
             'Category': self.get_category(),
