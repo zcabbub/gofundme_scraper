@@ -9,6 +9,7 @@ import gzip
 import time
 import xml.etree.ElementTree as etree
 import csv
+import re
 
 
 # Helper functions
@@ -72,8 +73,12 @@ xmlGzLocations = driver.find_elements_by_tag_name("loc")
 xmlGzLinks = []
 for location in xmlGzLocations:
     text = location.get_attribute("innerHTML")
-    if text != "https://www.gofundme.com/sitemaps/sitemap_marketing.xml.gz" and ("34" in text):
-        xmlGzLinks.append(text)
+    found = re.search(r'\d+', text)
+    if found:
+        number = int(found.group(0))
+        if number in range(19,36):
+            if text != "https://www.gofundme.com/sitemaps/sitemap_marketing.xml.gz":
+                xmlGzLinks.append(text)
 
 print('Downloading the .gz archived files...')
 for link in xmlGzLinks:

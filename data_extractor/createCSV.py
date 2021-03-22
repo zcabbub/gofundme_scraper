@@ -8,22 +8,20 @@ differences = 0
 
 # Creating table
 print('Creating table...')
-with open('1000htmls.json', 'r') as htmls:
-    with open('1000counts.json', 'r') as counts:
-        htmls_list = json.load(htmls)
-        counts_list = json.load(counts)
-        for index in range(0, 1000):
-            try:
-                cleaner = DataCleaner(htmls_list[index], counts_list[index])
-                row = cleaner.get_dictionary()
-                table = table.append(row, ignore_index=True)
-            except Exception as e:
-                print(e)
-
+with open('campaigns.txt', 'r') as file:
+    campaigns = file.readlines()
+    for campaign in campaigns:
+        html = json.loads(campaign)['html']
+        counts = json.loads(campaign)['counts']
+        if not counts or not html:
+            continue
+        cleaner = DataCleaner(html, counts)
+        row = cleaner.get_dictionary()
+        table = table.append(row, ignore_index=True)
 
 print('Done with {errors} differences'.format(errors=differences))
 
 # Exporting
 print('Exporting table...')
-table.to_csv('1000campaigns.csv')
+table.to_csv('test_campaigns.csv')
 print('Done.')
